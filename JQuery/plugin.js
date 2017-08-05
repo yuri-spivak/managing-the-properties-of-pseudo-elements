@@ -1,4 +1,6 @@
 (function( $ ) {
+    'use string';
+    
     $.pseudoElements = {length: 0};
 
     var setPseudoElement = function (parameters) {
