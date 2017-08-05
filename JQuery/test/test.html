@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <!-- Function -->
+    <script src="../plugin.js"></script>
+    <!-- End:Function -->
+    <style>
+        .element {
+            width: 480px;
+            margin: 0 auto;
+            border: 2px solid red;
+        }
+
+        .element:before {
+            content: 'Old "content"';
+            color: orange;
+        }
+    </style>
+    <script>
+        $(function() {
+            var element0 = $('.element--0'),
+                element1 = $('.element--1');
+
+            console.log('The old "content" property of the ::before pseudo-element: %c' + element0.cssBefore('content'), 'background-color: black; color: #F0F0F0');
+
+            element0.cssBefore('content', '\'The new "content" property of the .element--0 element\'');
+            console.log('The new "content" property of the .element--0 element: %c' + element0.cssBefore('content'), 'background-color: black; color: #F0F0F0');
+
+            element1.cssBefore('content', '\'The new "content" property of the .element--1 element\'');
+            console.log('The new "content" property of the .element--1 element: %c' + element1.cssBefore('content'), 'background-color: black; color: #F0F0F0');
+
+            element1.cssBefore({'color': 'green'});
+            console.log('The new "color" property of the .element--1 element: %c' + element1.cssBefore('color'), 'background-color: black; color: #F0F0F0');
+
+            element0.cssBefore({'content': '\'The new "content" and "color" properties of the .element--0 element\'', 'color': 'blue'});
+            console.log('The new "content" property of the .element--0 element: %c' + element0.cssBefore('content'), 'background-color: black; color: #F0F0F0');
+            console.log('The new "color" property of the .element--0 element: %c' + element0.cssBefore('color'), 'background-color: black; color: #F0F0F0');
+        });
+    </script>
+</head>
+<body>
+    <div class="element element--0"></div>
+    <div class="element element--0 element--1"></div>
+    <div class="element element--1"></div>
+</body>
+</html>
