@@ -1,4 +1,4 @@
-(function () {
+(function( $ ) {
     $.pseudoElements = {length: 0};
 
     var setPseudoElement = function (parameters) {
@@ -118,4 +118,4 @@
             property: property
         });
     };
-})();
+})(jQuery);
