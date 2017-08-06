@@ -38,7 +38,7 @@
             };
 
             if (typeof parameters.argument === 'object') {
-                parameters.argument = (function() {
+                parameters.argument = Object.assign ? Object.assign({}, parameters.argument) : (function() {
                     var cloneObject = typeof parameters.argument.pop === 'function' ? [] : {};
 
                     for (var property in parameters.argument) {
@@ -58,10 +58,7 @@
                 var properties = '';
 
                 for (var property in parameters.argument) {
-                    if (typeof parameters.argument[property] === 'function')
-                        parameters.element.pseudoElements[parameters.pseudoElement].properties[property] = parameters.argument[property]();
-                    else
-                        parameters.element.pseudoElements[parameters.pseudoElement].properties[property] = parameters.argument[property];
+                    parameters.element.pseudoElements[parameters.pseudoElement].properties[property] = typeof parameters.argument[property] === 'function' ? parameters.argument[property]() : parameters.argument[property];
                 };
 
                 for (var property in parameters.element.pseudoElements[parameters.pseudoElement].properties) {
@@ -77,10 +74,7 @@
                     parameters.element.pseudoElements[parameters.pseudoElement].properties = {};
                 };
 
-                if (typeof parameters.property === 'function')
-                    parameters.element.pseudoElements[parameters.pseudoElement].properties[parameters.argument] = parameters.property();
-                else
-                    parameters.element.pseudoElements[parameters.pseudoElement].properties[parameters.argument] = parameters.property;
+                parameters.element.pseudoElements[parameters.pseudoElement].properties[parameters.argument] = typeof parameters.property === 'function' ? parameters.property() : parameters.property;
 
                 var properties = '';
 
@@ -95,11 +89,7 @@
                 parameters.element, '::' + parameters.pseudoElement
             ).getPropertyValue(parameters.argument);
 
-            if (parameters.element.pseudoElements) {
-                return parameters.element.pseudoElements[parameters.pseudoElement].properties[parameters.argument] || windowStyle;
-            } else {
-                return windowStyle || null;
-            };
+            return parameters.element.pseudoElements ? parameters.element.pseudoElements[parameters.pseudoElement].properties[parameters.argument] || windowStyle : windowStyle || null;
         } else {
             console.error('Invalid values!');
             return false;
